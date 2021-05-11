@@ -13,6 +13,19 @@ def trib(n,back):
     return x[n][back]
 
 
+def main():
+    caso = 1
+    for l in fileinput.input():
+        if l == "\n":
+            break
+        linha = l.split()
+        n = int(linha[0])
+        back = int(linha[1])
+        if n > 60:
+            break
+        print(f"Case {caso}: {trib(n,back)}")
+        caso = caso+1
+
 
 if __name__ == "__main__":
     while True:
@@ -20,25 +33,7 @@ if __name__ == "__main__":
             #carrega a matriz com valor 0 em cada i,j da matriz
             x = [[0 for y in range(61)] for x in range(61)]
             #entra no programa principal
-            caso = 1
-            print(f"Case {caso}: {trib(3, 3)}")
-            caso = caso + 1
-            print(f"Case {caso}: {trib(4, 4)}")
-            caso = caso + 1
-            print(f"Case {caso}: {trib(5, 5)}")
-            caso = caso + 1
-            print(f"Case {caso}: {trib(6, 6)}")
-            caso = caso + 1
-            print(f"Case {caso}: {trib(7, 7)}")
-            caso = caso + 1
-            print(f"Case {caso}: {trib(8, 8)}")
-            caso = caso + 1
-            print(f"Case {caso}: {trib(9, 9)}")
-            caso = caso + 1
-            print(f"Case {caso}: {trib(61, 61)}")
-            caso = caso + 1
-
-
+            main()
         except EOFError:
             break
         finally:
