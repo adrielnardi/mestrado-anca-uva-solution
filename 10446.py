@@ -15,17 +15,16 @@ def trib(n,back):
 
 def main():
     caso = 1
-    for t in fileinput.input():
-        if t == "\n":
+    for l in fileinput.input():
+        if l == "\n":
             break
-        n, back = t.replace("\n", "").split("")
+        linha = l.split()
+        n = int(linha[0])
+        back = int(linha[1])
         if n > 60:
             break
-        n = int(n)
-        back = int(back)
         print(f"Case {caso}: {trib(n,back)}")
         caso = caso+1
-
 
 
 if __name__ == "__main__":
