@@ -4,11 +4,11 @@ import fileinput
 def trib(n,back):
     if n <=1:
         return 1
-    if x[n][back] != 0:
+    elif x[n][back] != 0:
         return x[n][back]
 
     x[n][back] = 1
-    for i in range(back):
+    for i in range(1,back+1):
         x[n][back] = x[n][back] + trib(n-i,back)
     return x[n][back]
 
