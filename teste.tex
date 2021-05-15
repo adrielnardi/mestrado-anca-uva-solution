@@ -1,0 +1,293 @@
+\documentclass[a4paper,12pt]{scrartcl}
+
+%%% Este arquivo deve ser processado com XeLaTeX ou com LuaLaTeX
+\usepackage{fontspec}
+\usepackage[brazil]{babel}
+\usepackage{fullpage}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{authblk}
+
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{automata}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\tikzset{node distance=3.5cm,everystate/.style={semithick,fill=gray!10},initial text={},doubledistance=2pt,everyedge/.style={draw,->,>=stealth',auto,semithick}}
+\let\epsilon\varepsilon
+
+\title{Resposta da Tarefa Lista 1}
+\subtitle{Análise e Complexidade de Algoritmos}
+\author{Adriel Monti De Nardi}
+\affil{PPComp --- Campus Serra, Ifes}
+\date{2020-11-23}
+
+\begin{document}
+
+\maketitle
+
+\section*{Exercício 1}
+\subsection*{Solução do exercício 1:}
+\textbf{(1)} a = b \\ 
+\textbf{(2)} a^2 = ab \\ 
+\textbf{(3) } a^2 - b^2 = ab - b^2 \\
+\textbf.{(4)} (a + b) (a - b) = b(a - b)\\
+\textbf{(5)} a + b = b \\
+\textbf{(6)} 2 = 1  \\
+onde: \\
+a = 1 \\ 
+b = 1 \\
+
+\\\textbf{ERRO:} O erro está na passagem da etapa \textbf{(4)}  para \textbf{(5)} em que dividimos ambos os lados (a-b). Ao substituir a = 1 e b = 1, a - b = 0. \\Divisão por 0 não existe, impossível realizar a divisão.
+
+\section*{Exercício 2}
+\subsection*{Solução do exercício 2:}
+Na indução, em que h = k + 1, temos  um conjunto H com k + 1 cavalos.\\
+Seja $H = \{ c_1,c_2, ... ,c_k, c_k+1 \}$, onde $c_i$ é o cavalo i. \\
+Ao removermos um cavalo temos $H_1= \{ c_1,c_2, ... ,c_k\}$, onde todos k cavalos têm a mesma cor.\\
+Colocando novamente o cavalo que estava removido e removendo outro cavalo temos $H_2 = \{ c_2, ... ,c_k, c_k+1 \}$ onde todos os k cavalos têm a mesma cor.\\ Temos então 
+$H_1 \cap H_2$ = \{ $c_2$, ... , $c_k$  \}, onde os k - 1 cavalos  são da mesma cor, de modo que $c_1$ e $c_k+1$ são da mesma cor. \\
+Quando k = 1, temos h = k+1 = 2, de modo que:\\
+H = \{ $c_1$, $c_2$ \} \\
+$H_1$ = \{ $c_1$ \} \\
+$H_2$ = \{ $c_2$ \} \\\\
+Note que $H_1 \cap H_2$ = \{ \}, em que não tem como fazer uma comparação dos cavalos $c_1$ e $c_2$ \\
+Neste caso, não se pode afirmar que os dois cavalos têm a mesma cor, invalidando a prova.
+
+\section*{Exercício 3 }
+\begin{enumerate}
+\subsection*{A) $ \lbrace {w | (|w|a \geq 3) \wedge (|w|b \geq 2)} \rbrace $}
+\\
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state, right of=q0] (q1) {$q_1$};
+\node[state, right of=q1] (q2) {$q_2$};
+\node[state, right of=q2] (q3) {$q_3$};
+\node[state, below of=q0] (q4) {$q_4$};
+\node[state, below of=q1] (q5) {$q_5$};
+\node[state, below of=q2] (q6) {$q_6$};
+\node[state, below of=q3] (q7) {$q_7$};
+\node[state, below of=q4] (q8) {$q_8$};
+\node[state, below of=q5] (q9) {$q_{9}$};
+\node[state, below of=q6] (q10) {$q_{10}$};
+\node[state,accepting, below of=q7] (q11) {$q_{11}$};
+\draw (q0) edge [->,>=stealth,semithick] node   {\tt  a} (q1);
+\draw (q1) edge [->,>=stealth,semithick] node {\tt a} (q2);
+\draw (q2) edge [->,>=stealth,semithick] node {\tt a} (q3);
+\draw (q0) edge [->,>=stealth,semithick] node {\tt b} (q4);
+\draw (q4) edge [->,>=stealth,semithick]node {\tt a} (q5);
+\draw (q5) edge [->,>=stealth,semithick]node {\tt a} (q6);
+\draw (q6) edge[->,>=stealth,semithick] node {\tt a} (q7);
+\draw (q4) edge [->,>=stealth,semithick]node {\tt b} (q8);
+\draw (q8) edge [->,>=stealth,semithick]node {\tt a} (q9);
+\draw (q9) edge [->,>=stealth,semithick]node {\tt a} (q10);
+\draw (q10) edge [->,>=stealth,semithick]node {\tt a} (q11);
+\draw (q1) edge [->,>=stealth,semithick]node {\tt b} (q5);
+\draw (q2) edge [->,>=stealth,semithick]node {\tt b} (q6);
+\draw (q3) edge  [->,>=stealth,semithick]node {\tt b} (q7) ; 
+\draw (q7) edge [->,>=stealth,semithick]node {\tt b} (q11);
+\draw (q5) edge [->,>=stealth,semithick]node {\tt b} (q9);
+\draw (q6) edge [->,>=stealth,semithick]node {\tt b} (q10);
+\draw (q3)  edge [loop above] node {\tt a} (q3);
+\draw (q7)  edge [loop right] node  {\tt a} (q7);
+\draw (q11)  edge [loop right] node{\tt a,b} (q11);
+\draw (q8)  edge [loop below] node{\tt b} (q8);
+			\draw (q9)  edge [loop below] node  {\tt b} (q9);
+			\draw (q10)  edge [loop below] node  {\tt b} (q10);
+
+\end{tikzpicture}
+
+
+\end{enumerate}
+
+\subsection*{B) ${ \lbrace  w | (|w|a\mod2 = 1)\wedge w[−1] = b} \rbrace $}
+\\
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state, below of=q0] (q1) {$q_1$};
+\node[state, right of=q0] (q2) {$q_2$};
+\node[state,accepting, below of=q2] (q3) {$q_3$};
+
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  b} (q1);
+\draw (q1) edge [->,>=stealth,semithick] node {\tt a} (q2);
+\draw (q2) edge [->,>=stealth,semithick] node {\tt b} (q3);
+\draw (q3) edge [bend left,->,>=stealth,semithick] node {\tt a} (q0);
+\draw (q0) edge [bend left,->,>=stealth,semithick] node {\tt a} (q2);
+\draw (q2) edge [->,>=stealth,semithick] node {\tt a} (q0);
+\draw (q1)  edge [loop below] node  {\tt b} (q1);
+ \draw (q3)  edge [loop below] node  {\tt b} (q3);
+\end{tikzpicture}
+
+\subsection*{C)$ \lbrace {w | (|w| \mod 2 = 0) \wedge (|w|a \mod 2 = 1)} \rbrace $}\\
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state, right of=q0] (q1) {$q_1$};
+\node[state, below of=q0] (q2) {$q_2$};
+\node[state,accepting, below of=q1] (q3) {$q_3$};
+
+\draw (q0) edge [bend left,->,>=stealth,semithick] node{\tt  a} (q1);
+\draw (q1) edge [bend left,->,>=stealth,semithick] node {\tt a} (q0);
+\draw (q2) edge [bend left,->,>=stealth,semithick] node {\tt b} (q0);
+\draw (q0) edge [bend left,->,>=stealth,semithick] node {\tt b} (q2);
+\draw (q2) edge [bend left,->,>=stealth,semithick] node {\tt a} (q3);
+\draw (q3) edge [bend left,->,>=stealth,semithick] node {\tt a} (q2);
+\draw (q3) edge [bend left,->,>=stealth,semithick] node {\tt b} (q1);
+\draw (q1) edge [bend left,->,>=stealth,semithick] node {\tt b} (q3);
+
+\end{tikzpicture}
+
+
+\subsection*{D)${ \lbrace w | ab\not\in S(w) \rbrace }$}\\
+
+\begin{tikzpicture}
+\node[state, accepting,initial] (q0) {$q_0$};
+\node[state,accepting, right of=q0] (q1) {$q_1$};
+\node[state,accepting, above of=q0] (q2) {$q_2$};
+\draw (q0) edge [bend left,->,>=stealth,semithick] node{\tt  b} (q1);
+\draw (q1) edge [bend left,->,>=stealth,semithick] node {\tt a} (q0);
+\draw (q0) edge [bend below,->,>=stealth,semithick] node {\tt a}(q2);
+
+\draw (q1)  edge [loop below] node  {\tt b} (q1);
+\draw (q2)  edge [loop above] node  {\tt a} (q2);
+\end{tikzpicture}\\
+
+
+\subsection*{E)${ \lbrace w | ab\not\in S(w) \wedge ba\not\in S(w) \rbrace  }$}\\
+
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state,accepting, right of=q0] (q1) {$q_1$};
+\node[state,accepting, above of=q0] (q2) {$q_2$};
+\draw (q0) edge [left,->,>=stealth,semithick] node{\tt  b} (q1);
+\draw (q0) edge [bend below,->,>=stealth,semithick] node {\tt a}(q2);
+
+\draw (q1)  edge [loop below] node  {\tt b} (q1);
+\draw (q2)  edge [loop above] node  {\tt a} (q2);
+\end{tikzpicture}\\
+
+
+\subsection*{F)${ \lbrace w | ab\not\in S(w) \vee ba\not\in S(w) \rbrace }
+$} \\
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state,accepting, right of=q0] (q1) {$q_1$};
+\node[state,accepting, below of=q1] (q2) {$q_2$};
+\node[state,accepting, right of=q1] (q3) {$q_3$};
+\node[state,accepting, right of=q2] (q4) {$q_4$};
+\node[state,accepting, above of=q1] (q5) {$q_5$};
+\node[state, accepting,below of=q2] (q6) {$q_6$};
+
+
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  a} (q1);
+\draw (q1) edge [bend left,->,>=stealth,semithick] node{\tt  b} (q3);
+\draw (q1) edge [left,->,>=stealth,semithick] node{\tt  a} (q5);
+\draw (q2) edge [left,->,>=stealth,semithick] node{\tt  b} (q6);
+\draw (q3) edge [bend left,->,>=stealth,semithick] node{\tt  a} (q1);
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  b} (q2);
+\draw (q2) edge [bend left,->,>=stealth,semithick] node{\tt  a} (q4);
+\draw (q4) edge [bend left,->,>=stealth,semithick] node{\tt  b} (q2);
+\draw (q4)  edge [loop below] node  {\tt a} (q4);
+\draw (q3)  edge [loop below] node  {\tt b} (q3);
+\draw (q5)  edge [loop above] node  {\tt a} (q5);
+\draw (q6)  edge [loop below] node  {\tt b} (q6);
+\end{tikzpicture}
+
+
+\subsection*{G) ${ \lbrace w | (|w|a \not\equiv  2) \rbrace  }$} \\
+
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state, accepting,right of=q0] (q1) {$q_1$};
+\node[state, right of=q1] (q2) {$q_2$};
+\node[state, accepting, right of=q2] (q3) {$q_3$};
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  a} (q1);
+\draw (q1) edge [->,>=stealth,semithick] node{\tt  a} (q2);
+\draw (q2) edge [->,>=stealth,semithick] node{\tt  a} (q3);
+\draw (q3)  edge [loop below] node  {\tt a} (q3);
+\end{tikzpicture}\\
+
+\subsection*{H)${ \lbrace  w | (w[1] = a \wedge |w| \mod 2 = 1) \vee (w[1] = b \wedge|w| \mod 2 = 0) \rbrace }
+$}\\
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state,accepting, right of=q0] (q1) {$q_1$};
+\node[state, below of=q1] (q2) {$q_2$};
+\node[state, right of=q1] (q3) {$q_3$};
+\node[state,accepting, right of=q2] (q4) {$q_4$};
+
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  a} (q1);
+\draw (q1) edge [bend left,->,>=stealth,semithick] node{\tt  a,b} (q3);
+\draw (q3) edge [bend left,->,>=stealth,semithick] node{\tt  a,b} (q1);
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  b} (q2);
+\draw (q2) edge [bend left,->,>=stealth,semithick] node{\tt  a,b} (q4);
+\draw (q4) edge [bend left,->,>=stealth,semithick] node{\tt  a,b} (q2);
+\draw (q3) edge [bend left,->,>=stealth,semithick] node{\tt  a,b} (q4);
+\draw (q4) edge [bend left,->,>=stealth,semithick] node{\tt  a,b} (q3);
+\end{tikzpicture}
+
+\section*{Exercício 4}
+\subsection*{A) $\{$ ${a^nb^m | n, m\geq 0} $\}$
+$\\}
+
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state, right of=q0] (q1) {$q_1$};
+\node[state,accepting, right of=q1] (q2) {$q_2$};
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  $\epsilon$} (q1);
+\draw (q1) edge [->,>=stealth,semithick] node{\tt  $\epsilon$} (q2);
+
+\draw (q0)  edge [loop below] node  {\tt a} (q0);
+\draw (q1)  edge [loop below] node  {\tt b} (q1);
+\end{tikzpicture}\\
+
+
+\subsection*{B) $\{$ ${a^ib^ja^k | i\geq 0\wedge j\geq 0\wedge k\geq 1}$ $\}$   \\\\}
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state, right of=q0] (q1) {$q_1$};
+\node[state, right of=q1] (q2) {$q_2$};
+\node[state,accepting, right of=q2] (q3) {$q_3$};
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  $\epsilon$} (q1);
+\draw (q1) edge [->,>=stealth,semithick] node{\tt  $\epsilon$} (q2);
+\draw (q2) edge [->,>=stealth,semithick] node{\tt  a} (q3);
+
+\draw (q0)  edge [loop below] node  {\tt a} (q0);
+\draw (q1)  edge [loop below] node  {\tt b} (q1);
+\draw (q2)  edge [loop below] node  {\tt a} (q2);
+\end{tikzpicture}\\
+\subsection*{C)$\lbrace{waba | w  \in   \lbrace{a, b} \rbrace
+^\ast}\rbrace$\\}
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state,accepting, right of=q0] (q1) {$q_1$};
+\draw (q0) edge [bend left,->,>=stealth,semithick] node{\tt  aba} (q1);
+\draw (q1) edge [bend left,->,>=stealth,semithick] node{\tt $\epsilon$ } (q0);
+\draw (q0)  edge [loop below] node  {\tt $\epsilon$,a,b} (q0);
+
+\end{tikzpicture}\\
+
+\subsection*{D)$ {a^nb^m | (n \mod 2 = 0\wedge m \mod 2 = 1) \vee (n \mod 2 = 1 \wedge m \mod 2 = 0)}$}
+\begin{tikzpicture}
+\node[state, initial] (q0) {$q_0$};
+\node[state, right of=q0] (q1) {$q_1$};
+\node[state, below of=q1] (q2) {$q_2$};
+\node[state, accepting,right of=q1] (q3) {$q_3$};
+\node[state, below of=q2] (q4) {$q_4$};
+\node[state, below of=q4] (q5) {$q_5$};
+\node[state, accepting,right of=q4] (q6) {$q_6$};
+\node[state, below of=q6] (q7) {$q_7$};
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  $\epsilon$} (q1);
+\draw (q0) edge [->,>=stealth,semithick] node{\tt  a} (q4);
+\draw (q1) edge [bend left,->,>=stealth,semithick] node{\tt  b} (q3);
+\draw (q3) edge [bend left,->,>=stealth,semithick] node{\tt  b} (q1);
+\draw (q1) edge [bend left,->,>=stealth,semithick] node{\tt  a} (q2);
+\draw (q2) edge [bend left,->,>=stealth,semithick] node{\tt  a} (q1);
+\draw (q4) edge [->,>=stealth,semithick] node{\tt  $\epsilon$} (q6);
+\draw (q7) edge [bend left,->,>=stealth,semithick] node{\tt  b} (q6);
+\draw (q6) edge [bend left,->,>=stealth,semithick] node{\tt  b} (q7);
+\draw (q4) edge [bend left,->,>=stealth,semithick] node{\tt  a} (q5);
+\draw (q5) edge [bend left,->,>=stealth,semithick] node{\tt  a} (q4);
+\end{tikzpicture}
+
+
+\end{document}
