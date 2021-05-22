@@ -8,17 +8,22 @@ primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
           331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,
           401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, ]
 
+
 if __name__ == "__main__":
     while True:
         try:
+
+            dp = [[[-1 for y in range(200)] for y in range(20)] for x in range(1150)]
+
             for t in fileinput.input():
                 if t == "0 0":
                     break
                 linha = t.split()
                 n = int(linha[0])
                 k = int(linha[1])
-                print(primes)
-
+                print(n)
+                print(k)
+                
         except EOFError:
             break
         finally:
