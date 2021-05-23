@@ -11,7 +11,7 @@ primos = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67
           947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069,
           1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, ]
 
-def solve(n,k,i):
+def result(n,k,i):
     if n > 0 and k == 0:
         return 0
     if k == 0 and n == 0:
@@ -23,7 +23,7 @@ def solve(n,k,i):
     if m[n][k][i] != -1:
         return m[n][k][i];
 
-    m[n][k][i] = solve(n - primos[i], k-1, i+1) + solve(n, k, i+1)
+    m[n][k][i] = result(n - primos[i], k-1, i+1) + result(n, k, i+1)
     return m[n][k][i]
 
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
                 linha = t.split()
                 n = int(linha[0])
                 k = int(linha[1])
-                aux = solve(n,k,0)
+                aux = result(n,k,0)
                 lista.append(aux)
 
         except EOFError:
