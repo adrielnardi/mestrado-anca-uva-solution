@@ -1,5 +1,4 @@
 # Solutions UVa Online Judge
------
 
 - UVa 00231 - Testing the CATCHER
 - UVa 00628 - Passwords
